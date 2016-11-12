@@ -1,12 +1,23 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion rootProject.targetSdkVersion
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "es.iridiobis.stickycomponent"
-        minSdkVersion 14
-        targetSdkVersion 25
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -20,10 +31,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    compile "com.android.support:appcompat-v7:$rootProject.versions.support"
+    apt "com.google.dagger:dagger-compiler:$rootProject.versions.dagger"
+    compile "com.google.dagger:dagger:$rootProject.versions.dagger"
+    provided "javax.annotation:jsr250-api:$rootProject.versions.javax"
+
+    testCompile "junit:junit:$rootProject.versions.junit"
+
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.versions.espresso", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    testCompile 'junit:junit:4.12'
 }
