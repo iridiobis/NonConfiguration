@@ -1,4 +1,15 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion rootProject.targetSdkVersion
@@ -21,6 +32,9 @@ android {
 
 dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.versions.support"
+    apt "com.google.dagger:dagger-compiler:$rootProject.versions.dagger"
+    compile "com.google.dagger:dagger:$rootProject.versions.dagger"
+    provided "javax.annotation:jsr250-api:$rootProject.versions.javax"
 
     testCompile "junit:junit:$rootProject.versions.junit"
 
