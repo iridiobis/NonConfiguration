@@ -1,6 +1,7 @@
 package es.iridiobis.stickycomponent.presentation.main;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class MainActivity
 
     @Override
     public void goToFirstNameScreen(final String firstName) {
+        getSupportFragmentManager().popBackStack(LastNameFragment.class.getName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class MainActivity
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, LastNameFragment.newInstance(firstName))
-                .addToBackStack(null)
+                .addToBackStack(LastNameFragment.class.getName())
                 .commit();
     }
 
