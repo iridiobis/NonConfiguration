@@ -9,6 +9,8 @@ import javax.inject.Inject;
 import es.iridiobis.stickycomponent.R;
 import es.iridiobis.stickycomponent.core.injection.HasComponent;
 import es.iridiobis.stickycomponent.core.injection.main.MainComponent;
+import es.iridiobis.stickycomponent.domain.model.Person;
+import es.iridiobis.stickycomponent.presentation.main.confirmation.ConfirmationFragment;
 import es.iridiobis.stickycomponent.presentation.main.firstname.FirstNameFragment;
 import es.iridiobis.stickycomponent.presentation.main.lastname.LastNameFragment;
 
@@ -42,6 +44,10 @@ public class MainActivity
     }
 
     @Override
+    public void goToFirstNameScreen(final String firstName) {
+    }
+
+    @Override
     public void goToLastNameScreen(final String firstName) {
         getSupportFragmentManager()
                 .beginTransaction()
@@ -52,8 +58,17 @@ public class MainActivity
 
     @Override
     public void goToConfirmationScreen(final String fullName) {
-        //TODO switch fragment to confirmation fragment
-        Toast.makeText(this, fullName, Toast.LENGTH_LONG).show();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, ConfirmationFragment.newInstance(fullName))
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void goToFarewell(final Person person) {
+        //TODO switch fragment to farewell fragment
+        Toast.makeText(this, person.getFirstName(), Toast.LENGTH_LONG).show();
     }
 
     @Override

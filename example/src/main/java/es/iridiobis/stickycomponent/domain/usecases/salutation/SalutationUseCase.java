@@ -23,6 +23,11 @@ public class SalutationUseCase implements FirstNameUseCase, LastNameUseCase, Con
     }
 
     @Override
+    public void change(final ConfirmationUseCase.Listener listener) {
+        listener.goToFirstName(firstName);
+    }
+
+    @Override
     public void finish(final ConfirmationUseCase.Listener listener) {
         listener.goToFarewell(
                 Person.newBuilder()

@@ -8,5 +8,8 @@
     <string name="last_name_next">@string/next</string>
 
     <string name="next">Next</string>
+    <string name="confirmation_finish">Accept</string>
+    <string name="confirmation_change">Change</string>
+    <string name="confirmation_message">Are you %s?</string>
 
 </resources>

@@ -21,6 +21,13 @@ public class Person {
         return builder;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
 
     /**
      * {@code Person} builder static inner class.

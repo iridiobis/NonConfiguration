@@ -2,13 +2,16 @@ package es.iridiobis.stickycomponent.presentation.main;
 
 
 import es.iridiobis.stickycomponent.core.BasePresenter;
+import es.iridiobis.stickycomponent.domain.model.Person;
+import es.iridiobis.stickycomponent.presentation.main.confirmation.Confirmation;
 import es.iridiobis.stickycomponent.presentation.main.firstname.FirstName;
 import es.iridiobis.stickycomponent.presentation.main.lastname.LastName;
 
 public class MainNavigator
         extends BasePresenter<MainNavigatiorExecutor>
         implements FirstName.Navigator,
-        LastName.Navigator {
+        LastName.Navigator,
+        Confirmation.Navigator {
 
     private Operation operation;
 
@@ -29,6 +32,16 @@ public class MainNavigator
         }
     }
 
+    @Override
+    public void goToFarewellScreen(final Person person) {
+        processOperation(new GoToFarewellScreenOperation(person));
+    }
+
+    @Override
+    public void goToFirstNameScreen(final String firstName) {
+        processOperation(new GoToFirstNameScreenOperation(firstName));
+    }
+
     private void processOperation(final Operation operation) {
         if (hasView()) {
             operation.run();
@@ -39,6 +52,20 @@ public class MainNavigator
 
     interface Operation {
         void run();
+    }
+
+    private class GoToFirstNameScreenOperation implements Operation {
+
+        private final String firstName;
+
+        GoToFirstNameScreenOperation(final String firstName) {
+            this.firstName = firstName;
+        }
+
+        @Override
+        public void run() {
+            getView().goToFirstNameScreen(firstName);
+        }
     }
 
     private class GoToLastScreenOperation implements Operation {
@@ -66,6 +93,20 @@ public class MainNavigator
         @Override
         public void run() {
             getView().goToConfirmationScreen(fullName);
+        }
+    }
+
+    private class GoToFarewellScreenOperation implements Operation {
+
+        private final Person person;
+
+        GoToFarewellScreenOperation(final Person person) {
+            this.person = person;
+        }
+
+        @Override
+        public void run() {
+            getView().goToFarewell(person);
         }
     }
 
