@@ -38,7 +38,7 @@ public class FirstNamePresenter
 
     @Override
     public void askForLastName(final String firstName) {
-        navigator.goToLastNameScreen();
+        navigator.goToLastNameScreen(firstName);
     }
 
     @Override

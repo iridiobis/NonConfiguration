@@ -2,5 +2,6 @@ package es.iridiobis.stickycomponent.presentation.main;
 
 
 public interface MainNavigatiorExecutor {
-    void goToLastNameScreen();
+    void goToLastNameScreen(String firstName);
+    void goToConfirmationScreen(String fullName);
 }

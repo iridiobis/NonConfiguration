@@ -1,4 +1,4 @@
-package es.iridiobis.stickycomponent.presentation.main.firstname;
+package es.iridiobis.stickycomponent.presentation.main.lastname;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -8,7 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -17,42 +17,55 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import es.iridiobis.stickycomponent.R;
 import es.iridiobis.stickycomponent.core.injection.HasComponent;
-import es.iridiobis.stickycomponent.core.injection.main.firstname.FirstNameComponent;
 import es.iridiobis.stickycomponent.core.injection.main.MainComponent;
+import es.iridiobis.stickycomponent.core.injection.main.lastname.LastNameComponent;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FirstNameFragment#newInstance} factory method to
+ * Use the {@link LastNameFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FirstNameFragment extends Fragment implements FirstName.View {
+public class LastNameFragment extends Fragment implements LastName.View {
 
-    @BindView(R.id.first_name)
-    TextInputEditText firstNameView;
-    @BindView(R.id.first_name_next)
+    private static final String FIRST_NAME_EXTRA = "LastNameFragment.FIRST_NAME_EXTRA";
+
+    @BindView(R.id.last_name_message)
+    TextView messageView;
+    @BindView(R.id.last_name)
+    TextInputEditText lastNameView;
+    @BindView(R.id.last_name_next)
     View nextButton;
 
     @Inject
-    FirstName.Presenter presenter;
+    LastName.Presenter presenter;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment.
      *
+     * @param lastName last name, to be displayed while requesting the last name
      * @return A new instance of fragment LastNameFragment.
      */
-    public static FirstNameFragment newInstance() {
-        return new FirstNameFragment();
+    public static LastNameFragment newInstance(final String lastName) {
+        final LastNameFragment fragment = new LastNameFragment();
+        final Bundle extras = new Bundle();
+        extras.putString(FIRST_NAME_EXTRA, lastName);
+        fragment.setArguments(extras);
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_first_name, container, false);
-        FirstNameComponent.Initializer.init((HasComponent<MainComponent>) getActivity()).inject(this);
+        final View view = inflater.inflate(R.layout.fragment_last_name, container, false);
+        LastNameComponent.Initializer
+                .init(
+                        getArguments().getString(FIRST_NAME_EXTRA),
+                        (HasComponent<MainComponent>) getActivity())
+                .inject(this);
         ButterKnife.bind(this, view);
-        firstNameView.addTextChangedListener(new TextWatcher() {
+        lastNameView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(final CharSequence charSequence, final int i, final int i1, final int i2) {
 
@@ -65,15 +78,20 @@ public class FirstNameFragment extends Fragment implements FirstName.View {
 
             @Override
             public void afterTextChanged(final Editable editable) {
-                presenter.updateFirstName(editable.toString());
+                presenter.updateLastName(editable.toString());
             }
         });
         return view;
     }
 
     @Override
-    public void showFirstName(final String firstName) {
-        firstNameView.setText(firstName);
+    public void showMessage(final String firstName) {
+        messageView.setText(getString(R.string.last_name_message, firstName));
+    }
+
+    @Override
+    public void showLastName(final String lastName) {
+        lastNameView.setText(lastName);
     }
 
     @Override
@@ -81,9 +99,9 @@ public class FirstNameFragment extends Fragment implements FirstName.View {
         nextButton.setEnabled(enabled);
     }
 
-    @OnClick(R.id.first_name_next)
+    @OnClick(R.id.last_name_next)
     public void goToNext() {
-        presenter.confirmFirstName();
+        presenter.confirmLastName();
     }
 
     @Override

@@ -10,6 +10,7 @@ import es.iridiobis.stickycomponent.R;
 import es.iridiobis.stickycomponent.core.injection.HasComponent;
 import es.iridiobis.stickycomponent.core.injection.main.MainComponent;
 import es.iridiobis.stickycomponent.presentation.main.firstname.FirstNameFragment;
+import es.iridiobis.stickycomponent.presentation.main.lastname.LastNameFragment;
 
 public class MainActivity
         extends AppCompatActivity
@@ -41,9 +42,18 @@ public class MainActivity
     }
 
     @Override
-    public void goToLastNameScreen() {
-        //TODO switch fragment to last name fragment
-        Toast.makeText(this, "Go to last name", Toast.LENGTH_LONG).show();
+    public void goToLastNameScreen(final String firstName) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, LastNameFragment.newInstance(firstName))
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void goToConfirmationScreen(final String fullName) {
+        //TODO switch fragment to confirmation fragment
+        Toast.makeText(this, fullName, Toast.LENGTH_LONG).show();
     }
 
     @Override
