@@ -56,6 +56,8 @@ public class LastNamePresenter
     }
 
     private void updateNextButton() {
-        getView().enableNextButton(lastName != null && !lastName.isEmpty());
+        if (hasView()) {
+            getView().enableNextButton(lastName != null && !lastName.isEmpty());
+        }
     }
 }
