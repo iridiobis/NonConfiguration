@@ -10,39 +10,63 @@ public class MainNavigator
         implements FirstName.Navigator,
         LastName.Navigator {
 
-    //TODO improve, make state independent
-    private boolean navigationToLastNameScreenPending;
-    private boolean navigationToConfirmationScreenPending;
-    private String name;
+    private Operation operation;
 
     @Override
     public void goToLastNameScreen(final String firstName) {
-        if (hasView()) {
-            getView().goToLastNameScreen(firstName);
-        } else {
-            navigationToLastNameScreenPending = true;
-            name = firstName;
-        }
-    }
-
-    @Override
-    protected void onViewAttached() {
-        if (navigationToLastNameScreenPending) {
-            getView().goToLastNameScreen(name);
-            navigationToLastNameScreenPending = false;
-        } else if (navigationToConfirmationScreenPending) {
-            getView().goToConfirmationScreen(name);
-            navigationToConfirmationScreenPending = false;
-        }
+        processOperation(new GoToLastScreenOperation(firstName));
     }
 
     @Override
     public void goToConfirmationScreen(final String fullName) {
-        if (hasView()) {
-            getView().goToConfirmationScreen(fullName);
-        } else {
-            navigationToConfirmationScreenPending = true;
-            name = fullName;
+        processOperation(new GoToConfirmationScreenOperation(fullName));
+    }
+
+    @Override
+    protected void onViewAttached() {
+        if (operation != null) {
+            operation.run();
         }
     }
+
+    private void processOperation(final Operation operation) {
+        if (hasView()) {
+            operation.run();
+        } else {
+            this.operation = operation;
+        }
+    }
+
+    interface Operation {
+        void run();
+    }
+
+    private class GoToLastScreenOperation implements Operation {
+
+        private final String firstName;
+
+        GoToLastScreenOperation(final String firstName) {
+            this.firstName = firstName;
+        }
+
+        @Override
+        public void run() {
+            getView().goToLastNameScreen(firstName);
+        }
+    }
+
+    private class GoToConfirmationScreenOperation implements Operation {
+
+        private final String fullName;
+
+        GoToConfirmationScreenOperation(final String fullName) {
+            this.fullName = fullName;
+        }
+
+        @Override
+        public void run() {
+            getView().goToConfirmationScreen(fullName);
+        }
+    }
+
 }
