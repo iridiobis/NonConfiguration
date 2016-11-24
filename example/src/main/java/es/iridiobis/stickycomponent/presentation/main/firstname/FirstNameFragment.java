@@ -39,7 +39,7 @@ public class FirstNameFragment extends Fragment implements FirstName.View {
      * Use this factory method to create a new instance of
      * this fragment.
      *
-     * @return A new instance of fragment LastNameFragment.
+     * @return A new instance of fragment FirstNameFragment.
      */
     public static FirstNameFragment newInstance() {
         return new FirstNameFragment();
