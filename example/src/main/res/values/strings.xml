@@ -12,4 +12,6 @@
     <string name="confirmation_change">Change</string>
     <string name="confirmation_message">Are you %s?</string>
 
+    <string name="farewell_message">You have entered your information, %1$s %2$s</string>
+
 </resources>

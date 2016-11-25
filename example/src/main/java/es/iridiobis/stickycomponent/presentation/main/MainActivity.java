@@ -12,6 +12,7 @@ import es.iridiobis.stickycomponent.core.injection.HasComponent;
 import es.iridiobis.stickycomponent.core.injection.main.MainComponent;
 import es.iridiobis.stickycomponent.domain.model.Person;
 import es.iridiobis.stickycomponent.presentation.main.confirmation.ConfirmationFragment;
+import es.iridiobis.stickycomponent.presentation.main.farewell.FarewellFragment;
 import es.iridiobis.stickycomponent.presentation.main.firstname.FirstNameFragment;
 import es.iridiobis.stickycomponent.presentation.main.lastname.LastNameFragment;
 
@@ -69,8 +70,11 @@ public class MainActivity
 
     @Override
     public void goToFarewell(final Person person) {
-        //TODO switch fragment to farewell fragment
-        Toast.makeText(this, person.getFirstName(), Toast.LENGTH_LONG).show();
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, FarewellFragment.newInstance(person))
+                .commit();
     }
 
     @Override
