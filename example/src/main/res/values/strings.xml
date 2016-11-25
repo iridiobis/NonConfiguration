@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Sticky Component</string>
+
+    <string name="first_name_hint">First name</string>
+    <string name="first_name_next">@string/next</string>
+    <string name="last_name_message">Hi %s, can you tell me your last name?</string>
+    <string name="last_name_hint">Last name</string>
+    <string name="last_name_next">@string/next</string>
+
+    <string name="next">Next</string>
+    <string name="confirmation_finish">Accept</string>
+    <string name="confirmation_change">Change</string>
+    <string name="confirmation_message">Are you %s?</string>
+
+    <string name="farewell_message">You have entered your information, %1$s %2$s</string>
+
 </resources>

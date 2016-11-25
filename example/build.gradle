@@ -4,13 +4,12 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
-
+apply plugin: 'com.jakewharton.hugo'
 android {
     compileSdkVersion rootProject.targetSdkVersion
     buildToolsVersion "25.0.0"
@@ -32,8 +31,14 @@ android {
 
 dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.versions.support"
-    apt "com.google.dagger:dagger-compiler:$rootProject.versions.dagger"
+    compile "com.android.support:support-v4:$rootProject.versions.support"
+    compile "com.android.support:design:$rootProject.versions.support"
+    compile "com.jakewharton:butterknife:$rootProject.versions.butterknife"
     compile "com.google.dagger:dagger:$rootProject.versions.dagger"
+
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.versions.butterknife"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.versions.dagger"
+    
     provided "javax.annotation:jsr250-api:$rootProject.versions.javax"
 
     testCompile "junit:junit:$rootProject.versions.junit"

@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="es.iridiobis.stickycomponent.presentation.main.confirmation.ConfirmationFragment"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/confirmation_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        tools:text="Are you Pepe Gotera?"/>
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/confirmation_finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/confirmation_finish"
+        android:textColor="#fff"
+        android:padding="16dp"
+        android:layout_margin="8dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/confirmation_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/confirmation_change"
+        android:textColor="#fff"
+        android:padding="16dp"
+        android:layout_margin="8dp"
+        android:background="#888"
+        android:gravity="center"/>
+
+</LinearLayout>
