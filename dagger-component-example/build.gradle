@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.hugo'
 android {
     compileSdkVersion rootProject.targetSdkVersion
-    buildToolsVersion "25.0.2"
+    buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
         applicationId "es.iridiobis.nonconfiguration"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

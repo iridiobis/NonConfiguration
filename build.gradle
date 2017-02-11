@@ -20,15 +20,27 @@ allprojects {
     }
 }
 
+def gitCount = 'git rev-list master --first-parent --count'.execute([], project.rootDir).text.trim()
+
+//Version information
+def versionMajor = 0
+def versionMinor = 1
+def versionBuild = (gitCount?.trim()) ? gitCount.toInteger() : 0
+
 ext {
     minSdkVersion = 16
     targetSdkVersion = 25
+    buildToolsVersion = '25.0.2'
+
+    versionCode = versionMajor * 1000 + versionMinor * 100 + versionBuild
+    versionName = "${versionMajor}.${versionMinor}"
+
     versions = [
+            support    : '25.1.1',
             dagger     : '2.7',
             espresso   : '2.2.2',
             javax      : '1.0',
             junit      : '4.12',
-            support    : '25.1.0',
             butterknife: '8.4.0'
     ]
 }

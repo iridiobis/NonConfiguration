@@ -1,14 +1,18 @@
 apply plugin: 'com.android.library'
 
+ext {
+    defaultName = "nonconfiguration"
+}
+
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion rootProject.targetSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -17,6 +21,19 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    libraryVariants.all { variant ->
+        def baseName = defaultName
+        def builtName = variant.buildType.name
+        if (builtName != 'release') {
+            baseName += "-${builtName}"
+        }
+        baseName += "-v${project.versionName}.aar"
+
+        variant.outputs.each { output ->
+            def alignedOutputFile = output.outputFile
+            output.outputFile = new File(alignedOutputFile.parent, baseName)
         }
     }
 }
@@ -31,8 +48,3 @@ dependencies {
     })
 }
 
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    failOnError false
-}
