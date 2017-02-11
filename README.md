@@ -2,7 +2,7 @@
 Classes and interfaces to provide fragments (or any other class that could need it) with the ability to keep an instance of any object on configuration changes.
 
 ##Background
-Rotation and network calls have always be a bad mix in Android. There are multiple solutions and workarounds out there, but for me the best one consist in using MVP and keeping the presenter alive on configuration changes. This is really easy to achieve working with activities, as they provide the ``onRetainCustomNonConfigurationInstance()`` and ``getLastCustomNonConfigurationInstance()`` methods; but when working with fragments, this feature is not available.
+Rotation and network calls have always been a bad mix in Android. There are multiple solutions and workarounds out there, but for me the best one consist in using MVP and keeping the presenter alive on configuration changes. This is really easy to achieve working with activities, as they provide the ``onRetainCustomNonConfigurationInstance()`` and ``getLastCustomNonConfigurationInstance()`` methods; but when working with fragments, this feature is not available.
 
 The current library provides a set of classes and interfaces to bring this functionality to the fragments, so their presenters (components or whatever you want to keep alive) are not recreated on configuration changes.
 
