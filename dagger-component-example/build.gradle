@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.hugo'
+android {
+    compileSdkVersion rootProject.targetSdkVersion
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "es.iridiobis.nonconfiguration"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile "com.android.support:appcompat-v7:$rootProject.versions.support"
+    compile "com.android.support:support-v4:$rootProject.versions.support"
+    compile "com.android.support:design:$rootProject.versions.support"
+    compile "com.jakewharton:butterknife:$rootProject.versions.butterknife"
+    compile "com.google.dagger:dagger:$rootProject.versions.dagger"
+
+    compile project(':cache')
+
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.versions.butterknife"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.versions.dagger"
+    
+    provided "javax.annotation:jsr250-api:$rootProject.versions.javax"
+
+    testCompile "junit:junit:$rootProject.versions.junit"
+
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.versions.espresso", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
