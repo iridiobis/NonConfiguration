@@ -26,7 +26,7 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.versions.butterknife"
     compile "com.google.dagger:dagger:$rootProject.versions.dagger"
 
-    compile project(':cache')
+    compile project(':non-configuration')
 
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.versions.butterknife"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.versions.dagger"
