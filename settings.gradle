@@ -1,1 +1,1 @@
-include ':dagger-component-example', ':cache'
+include ':dagger-component-example', ':non-configuration'
