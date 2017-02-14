@@ -1,1 +1,1 @@
-include ':dagger-component-example', ':non-configuration'
+include ':dagger-component-example', ':non-configuration', ':presenter-example'
