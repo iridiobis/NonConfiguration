@@ -1,0 +1,32 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.hugo'
+android {
+    compileSdkVersion rootProject.targetSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+    defaultConfig {
+        applicationId "es.iridiobis.nonconfiguration"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile "com.android.support:appcompat-v7:$rootProject.versions.support"
+    compile "com.android.support:support-v4:$rootProject.versions.support"
+    compile "com.android.support:design:$rootProject.versions.support"
+    compile "com.jakewharton:butterknife:$rootProject.versions.butterknife"
+
+    compile project(':non-configuration')
+
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.versions.butterknife"
+
+}
