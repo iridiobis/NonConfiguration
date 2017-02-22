@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import es.iridiobis.nonconfiguration.HasNonConfiguration;
 import es.iridiobis.nonconfiguration.HasNonConfigurationCache;
 import es.iridiobis.nonconfiguration.NonConfigurationManager;
@@ -30,6 +30,8 @@ public class FarewellFragment extends Fragment implements Farewell.View, HasNonC
     TextView messageView;
 
     private NonConfigurationManager<Farewell.Presenter> nonConfigurationManager;
+
+    private Unbinder unbinder;
 
     /**
      * Use this factory method to create a new instance of
@@ -55,7 +57,7 @@ public class FarewellFragment extends Fragment implements Farewell.View, HasNonC
 
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_farewell, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -81,6 +83,12 @@ public class FarewellFragment extends Fragment implements Farewell.View, HasNonC
     public void onDestroy() {
         nonConfigurationManager.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override

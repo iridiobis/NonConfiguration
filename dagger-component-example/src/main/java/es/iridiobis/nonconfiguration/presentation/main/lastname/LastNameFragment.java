@@ -9,22 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import es.iridiobis.nonconfiguration.HasNonConfiguration;
+import es.iridiobis.nonconfiguration.HasNonConfigurationCache;
 import es.iridiobis.nonconfiguration.NonConfigurationManager;
 import es.iridiobis.nonconfiguration.R;
-import es.iridiobis.nonconfiguration.NonConfigurationCache;
-import es.iridiobis.nonconfiguration.HasNonConfigurationCache;
 import es.iridiobis.nonconfiguration.core.injection.HasComponent;
 import es.iridiobis.nonconfiguration.core.injection.main.MainComponent;
-import es.iridiobis.nonconfiguration.core.injection.main.firstname.FirstNameComponent;
 import es.iridiobis.nonconfiguration.core.injection.main.lastname.LastNameComponent;
 import es.iridiobis.nonconfiguration.presentation.listeners.TextChangedListener;
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +43,8 @@ public class LastNameFragment extends Fragment implements LastName.View, HasNonC
     LastName.Presenter presenter;
 
     private NonConfigurationManager<LastNameComponent> nonConfigurationManager;
+
+    private Unbinder unbinder;
 
     /**
      * Use this factory method to create a new instance of
@@ -72,7 +71,7 @@ public class LastNameFragment extends Fragment implements LastName.View, HasNonC
         nonConfigurationManager.getNonConfiguration().inject(this);
 
         final View view = inflater.inflate(R.layout.fragment_last_name, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         lastNameView.addTextChangedListener(new TextChangedListener() {
             @Override
             public void onTextChanged(@NonNull final String newText) {
@@ -104,6 +103,12 @@ public class LastNameFragment extends Fragment implements LastName.View, HasNonC
     public void onDestroy() {
         super.onDestroy();
         nonConfigurationManager.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
