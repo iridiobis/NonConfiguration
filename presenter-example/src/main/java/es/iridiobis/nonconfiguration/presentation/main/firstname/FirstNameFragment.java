@@ -8,16 +8,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import es.iridiobis.nonconfiguration.HasNonConfiguration;
 import es.iridiobis.nonconfiguration.HasNonConfigurationCache;
 import es.iridiobis.nonconfiguration.NonConfigurationManager;
-import es.iridiobis.nonconfiguration.presentation.listeners.TextChangedListener;
-import es.iridiobis.nonconfiguration.presentation.main.HasNavigator;
 import es.iridiobis.nonconfiguration.R;
+import es.iridiobis.nonconfiguration.presentation.listeners.TextChangedListener;
 import es.iridiobis.nonconfiguration.presentation.main.MainNavigatiorExecutor;
 
 /**
@@ -33,6 +32,8 @@ public class FirstNameFragment extends Fragment implements FirstName.View, HasNo
     View nextButton;
 
     private NonConfigurationManager<FirstName.Presenter> nonConfigurationManager;
+
+    private Unbinder unbinder;
 
     /**
      * Use this factory method to create a new instance of
@@ -54,7 +55,7 @@ public class FirstNameFragment extends Fragment implements FirstName.View, HasNo
                 savedInstanceState);
 
         final View view = inflater.inflate(R.layout.fragment_first_name, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         firstNameView.addTextChangedListener(new TextChangedListener() {
             @Override
             public void onTextChanged(@NonNull final String newText) {
@@ -86,6 +87,12 @@ public class FirstNameFragment extends Fragment implements FirstName.View, HasNo
     public void onDestroy() {
         super.onDestroy();
         nonConfigurationManager.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override

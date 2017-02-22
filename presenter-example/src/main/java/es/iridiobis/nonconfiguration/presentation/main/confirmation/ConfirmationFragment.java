@@ -8,16 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import es.iridiobis.nonconfiguration.HasNonConfiguration;
 import es.iridiobis.nonconfiguration.HasNonConfigurationCache;
 import es.iridiobis.nonconfiguration.NonConfigurationManager;
 import es.iridiobis.nonconfiguration.R;
 import es.iridiobis.nonconfiguration.domain.model.Person;
-import es.iridiobis.nonconfiguration.presentation.main.HasNavigator;
 import es.iridiobis.nonconfiguration.presentation.main.MainNavigatiorExecutor;
 
 /**
@@ -34,6 +33,8 @@ public class ConfirmationFragment extends Fragment implements Confirmation.View,
     TextView messageView;
 
     private NonConfigurationManager<Confirmation.Presenter> nonConfigurationManager;
+
+    private Unbinder unbinder;
 
     public static ConfirmationFragment newInstance(final String firstName, final String lastName) {
         final ConfirmationFragment fragment = new ConfirmationFragment();
@@ -56,7 +57,7 @@ public class ConfirmationFragment extends Fragment implements Confirmation.View,
                 savedInstanceState);
 
         final View view = inflater.inflate(R.layout.fragment_confirmation, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -82,6 +83,12 @@ public class ConfirmationFragment extends Fragment implements Confirmation.View,
     public void onDestroy() {
         nonConfigurationManager.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
