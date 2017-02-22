@@ -27,19 +27,19 @@ public class LastNameModule {
 
     @FragmentScope
     @Provides
-    public LastName.Presenter providePresenter(final LastNamePresenter presenter) {
+    public static LastName.Presenter providePresenter(final LastNamePresenter presenter) {
         return presenter;
     }
 
     @FragmentScope
     @Provides
-    public LastName.Navigator provideNavigator(final MainNavigator navigator) {
+    public static LastName.Navigator provideNavigator(final MainNavigator navigator) {
         return navigator;
     }
 
     @FragmentScope
     @Provides
-    public LastNameUseCase provideUseCase(final SalutationUseCase useCase) {
+    public static LastNameUseCase provideUseCase(final SalutationUseCase useCase) {
         return useCase;
     }
 }

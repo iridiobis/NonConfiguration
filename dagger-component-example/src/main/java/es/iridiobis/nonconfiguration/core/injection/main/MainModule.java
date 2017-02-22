@@ -11,7 +11,7 @@ public class MainModule {
 
     @ActivityScope
     @Provides
-    public SalutationUseCase provideSalutationUseCase() {
+    public static SalutationUseCase provideSalutationUseCase() {
         return new SalutationUseCase();
     }
 }

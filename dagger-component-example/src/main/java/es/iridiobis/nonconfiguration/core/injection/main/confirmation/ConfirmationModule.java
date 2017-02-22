@@ -27,19 +27,19 @@ public class ConfirmationModule {
 
     @FragmentScope
     @Provides
-    public Confirmation.Presenter providePresenter(final ConfirmationPresenter presenter) {
+    public static Confirmation.Presenter providePresenter(final ConfirmationPresenter presenter) {
         return presenter;
     }
 
     @FragmentScope
     @Provides
-    public Confirmation.Navigator provideNavigator(final MainNavigator navigator) {
+    public static Confirmation.Navigator provideNavigator(final MainNavigator navigator) {
         return navigator;
     }
 
     @FragmentScope
     @Provides
-    public ConfirmationUseCase provideUseCase(final SalutationUseCase useCase) {
+    public static ConfirmationUseCase provideUseCase(final SalutationUseCase useCase) {
         return useCase;
     }
 }
