@@ -15,19 +15,19 @@ public class FirstNameModule {
 
     @FragmentScope
     @Provides
-    public FirstName.Presenter providePresenter(final FirstNamePresenter presenter) {
+    public static FirstName.Presenter providePresenter(final FirstNamePresenter presenter) {
         return presenter;
     }
 
     @FragmentScope
     @Provides
-    public FirstName.Navigator provideNavigator(final MainNavigator navigator) {
+    public static FirstName.Navigator provideNavigator(final MainNavigator navigator) {
         return navigator;
     }
 
     @FragmentScope
     @Provides
-    public FirstNameUseCase provideUseCase(final SalutationUseCase useCase) {
+    public static FirstNameUseCase provideUseCase(final SalutationUseCase useCase) {
         return useCase;
     }
 }

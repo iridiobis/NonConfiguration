@@ -25,7 +25,7 @@ public class FarewellModule {
 
     @FragmentScope
     @Provides
-    public Farewell.Presenter providePresenter(final FarewellPresenter presenter) {
+    public static Farewell.Presenter providePresenter(final FarewellPresenter presenter) {
         return presenter;
     }
 
